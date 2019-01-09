@@ -1,0 +1,15 @@
+{
+  "name": "electron_crypto_app",
+  "version": "1.0.0",
+  "description": "application for displaying and alerting Cryptocurrency values\r based on user settings",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "4.0.1"
+  }
+}
