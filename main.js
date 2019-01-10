@@ -25,3 +25,5 @@ function createWindow() {
         win = null;
     });
 }
+
+// left off at video 10:01
