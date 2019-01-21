@@ -30,7 +30,7 @@ function createWindow() {
     var menu = Menu.buildFromTemplate([
         {
             label: 'Menu', // header task
-            submenu: [ // sub-array task(s)
+            submenu: [ // dropdown task(s)
                 {
                     label: 'Adjust Notification Value',
                     click() {
@@ -73,3 +73,5 @@ app.on('window-all-closed', () => {
 app.on ('activate', () => {
     if (win === null) { createWindow(); }
 });
+
+ // left off at 22:50
