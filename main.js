@@ -19,7 +19,7 @@ function createWindow() {
     }));
 
     // open devtools [Chrome]
-    win.webContents.openDevTools();
+    // win.webContents.openDevTools();
 
     // window close emitter
     win.on('closed', () => {

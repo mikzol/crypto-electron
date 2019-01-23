@@ -9,7 +9,7 @@ p.notify {
     margin: 0;
     padding: 20px;
     text-transform: uppercase;
-    -webkit-app-region: drag;
+    -webkit-app-region: drag; /* allows for the window to be draggable */
 }
 
 .row2 {
@@ -27,4 +27,9 @@ input {
     cursor: pointer;
     padding: 20px;
     text-decoration: underline;
+}
+
+html, body {
+    background: rgba(226, 226, 226, 0.7);
+    height: 100%;
 }
