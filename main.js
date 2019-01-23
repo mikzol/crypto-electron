@@ -74,4 +74,4 @@ app.on ('activate', () => {
     if (win === null) { createWindow(); }
 });
 
- // left off at 22:50
+ // left off at 26:06
