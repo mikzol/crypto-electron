@@ -1,4 +1,4 @@
-const electron = require('electron');
+const electron = require('electron'); // required for all js in electron app
 const path = require('path');
 const remote = electron.remote;
 

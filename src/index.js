@@ -1,11 +1,11 @@
-const electron = require('electron');
+const electron = require('electron'); // required for all js in electron app
 const path = require('path');
 const BrowserWindow = electron.remote.BrowserWindow; // allows for window creation
 
 // notify button event logic
 const notifyBtn = document.getElementById('notifyBtn');
 
-notifyBtn,addEventListener('click', function(event) {
+notifyBtn.addEventListener('click', function(event) {
 
     const modalPath = path.join('file://', __dirname, 'add.html'); // retrieve path html
     let win = new BrowserWindow( // create window object
