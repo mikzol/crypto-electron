@@ -44,6 +44,14 @@ function createWindow() {
                         shell.openExternal('https://coinmarketcap.com');
                     }
                 },
+                // CD: built logic for toggling DevTools for js debugging outside main.js
+                {
+                    label: 'Toggle DevTools',
+                    accelerator: process.platfrom == 'darwin' ? 'Command+I' : 'Ctrl+I',
+                    click(item, focusedWindow){ // instatiate focus on open window
+                        focusedWindow.toggleDevTools();
+                    }
+                },
                 { type: 'separator' },
                 {
                     label: 'Exit',
@@ -73,5 +81,3 @@ app.on('window-all-closed', () => {
 app.on ('activate', () => {
     if (win === null) { createWindow(); }
 });
-
- // left off at 35:20
