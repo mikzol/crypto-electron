@@ -24,7 +24,7 @@ function getBTC() {
         });
 }
 getBTC();
-setInterval(getBtc, 3000); // run every 30s (30000ms)
+setInterval(getBtc, 30000); // run every 30s (30000ms)
 
 // notify button event logic
 notifyBtn.addEventListener('click', function(event) {
