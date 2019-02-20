@@ -14,7 +14,8 @@ var targetPriceVal; // set with ipc.on event
 // notification settings
 const notification = {
     title: 'BTC ALERT',
-    body: 'BTC VALUE EXCEEDS SET TARGET PRICE'
+    body: 'BTC VALUE EXCEEDS SET TARGET PRICE',
+    icon: path.join(__dirname, '../assets/images/btc.png')
 }
 
 // Axios HTTP library
@@ -32,8 +33,6 @@ function getBTC() {
             // eval if set target value is less than current BTC exchange value
             if (targetPrice.innerHTML !== '' && targetPriceVal < res.data.BTC.USD)
             {
-                console.log(targetPriceVal)
-                console.log(JSON.stringify(res.data.BTC.USD))
                 const appNotification = new window.Notification(notification.title, notification);
             }
 
