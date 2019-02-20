@@ -2,6 +2,7 @@ const electron = require('electron'); // required for all js in electron app
 const path = require('path');
 const BrowserWindow = electron.remote.BrowserWindow; // allows for window creation
 const axios = require('axios'); // import axios HTTP library (after installing to project ROOT)
+const ipc = electron.ipcRenderer; // inter-process communication
 
 // notify button
 const notifyBtn = document.getElementById('notifyBtn');
@@ -45,5 +46,11 @@ notifyBtn.addEventListener('click', function(event) {
 
 });
 
+// set target price based on add.js response
+ipc.on('targetPriceVal', function(event, arg) {
 
+    targetPriceVal = Number(arg);
+    targetPrice.innerHTML = '$' + targetPriceVal; // set to the new target price
+
+});
 

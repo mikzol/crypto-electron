@@ -3,6 +3,7 @@ const {app, BrowserWindow, Menu} = require('electron'); // load modules from ele
 const path = require('path');
 const url = require('url');
 const shell = require('electron').shell;
+const ipc = require("electron").ipcMain; // electron inter-process communication (ipcMain / ipcRenderer) 
 
 // global ref to window object (avoid JS garbage collection)
 let win;
@@ -80,4 +81,10 @@ app.on('window-all-closed', () => {
 
 app.on ('activate', () => {
     if (win === null) { createWindow(); }
+});
+
+ipc.on('update-notify-val', function(event, arg) { // update-notify-val is the response event
+
+    win.webContents.send('targetPriceVal', arg);  // replace inner text with arg
+
 });
