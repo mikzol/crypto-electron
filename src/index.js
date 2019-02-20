@@ -47,10 +47,37 @@ notifyBtn.addEventListener('click', function(event) {
 });
 
 // set target price based on add.js response
-ipc.on('targetPriceVal', function(event, arg) {
+ipc.on('targetPriceVal', function(event, arg) { // targetPriceVal is the response event
 
-    targetPriceVal = Number(arg);
-    targetPrice.innerHTML = '$' + targetPriceVal; // set to the new target price
+    var targetPriceVal = tryParseInt(arg, 0);
+    if (targetPriceVal > 0)
+    {
+        targetPriceVal = '$' + targetPriceVal.toLocaleString('en');
+    }
+    else
+    {
+        arg = arg.replace(/\D/g, '') // regex search for all non-numeric chars
+        targetPriceVal = '$' + arg.toLocaleString('en');
+    }
+
+    targetPrice.innerHTML = targetPriceVal; // set to the new target price
 
 });
+
+// built similar to C#/Java int.TryParse() method
+function tryParseInt(str, defVal)
+{
+    var retVal = defVal;
+    if (str !== null)
+    {
+        if (str.length > 0)
+        {
+            if (!isNaN(str))
+            {
+                retVal = parseInt(str);
+            }
+        }
+    }
+    return retVal;
+}
 
