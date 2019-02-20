@@ -7,7 +7,7 @@ const shell = require('electron').shell;
 const ipc = require("electron").ipcMain; // electron inter-process communication (ipcMain / ipcRenderer) 
 
 // default currency to USD
-const currency = 'USD';
+var currency = 'USD';
 
 // global ref to window object (avoid JS garbage collection)
 let win;
@@ -79,7 +79,7 @@ function createWindow() {
                             }
                         },
                         {
-                            label: 'EUR',
+                            label: 'EUR (€)',
                             click() {
                                 currency = 'EUR'
                             }
@@ -103,12 +103,12 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') { app.quit(); }
 });
 
-app.on ('activate', () => {
+app.on('activate', () => {
     if (win === null) { createWindow(); }
 });
 
 ipc.on('update-notify-val', function(event, arg) { // update-notify-val is the response event
 
-    win.webContents.send('targetPriceVal', arg);  // replace inner text with arg
+    win.webContents.send('targetPriceVal', arg, currency);  // replace inner text with arg && pass currency
 
 });

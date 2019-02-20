@@ -10,6 +10,11 @@ const notifyBtn = document.getElementById('notifyBtn');
 var price = document.querySelector('h1');
 var targetPrice = document.getElementById('targetPrice');
 var targetPriceVal; // set with ipc.on event
+// currency values (default to US)
+var currDisplay = document.getElementById('curr-display');
+var currency = 'USD';
+var currSymbol = '$';
+var prevCurr = 'USD';
 
 // notification settings
 const notification = {
@@ -22,13 +27,16 @@ const notification = {
 // terminal > npm install axios --save
 function getBTC() {
 
-    // CryptoCompare API (get USD for 1 BTC)
-    axios.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC&tsyms=USD&api_key=adbe9819d79d1e9fd801665a2fb6657fa318cb9e3bec611029d1b78d8380d9d6') // custom API key gained at https://cyrptocompare.com/api
+    // CryptoCompare API // dynmaic based on selected currency (USD || EUR)
+    axios.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC&tsyms='+currency+'&api_key=adbe9819d79d1e9fd801665a2fb6657fa318cb9e3bec611029d1b78d8380d9d6') // custom API key gained at https://cyrptocompare.com/api
         .then(res => { // task chaining
 
             // console.log(JSON.stringify(res)) // CD: debug
-            const cryptos = res.data.BTC.USD; // return data
-            price.innerHTML = '$' + cryptos.toLocaleString('en');
+            const cryptos = (currency == 'USD') ? res.data.BTC.USD : res.data.BTC.EUR; // return data in selected currency
+
+            // set the display props
+            currDisplay.innerHTML = 'CURRENT BTC ('+currency+')';
+            price.innerHTML = currSymbol + cryptos.toLocaleString('en');
 
             // eval if set target value is less than current BTC exchange value
             if (targetPrice.innerHTML !== '' && targetPriceVal < res.data.BTC.USD)
@@ -62,19 +70,26 @@ notifyBtn.addEventListener('click', function(event) {
 });
 
 // set target price based on add.js response
-ipc.on('targetPriceVal', function(event, arg) { // targetPriceVal is the response event
+ipc.on('targetPriceVal', function(event, arg, curr) { // targetPriceVal is the response event
 
+    currency = curr; // global var
     targetPriceVal = tryParseInt(arg, 0); // attempt parse
     if (targetPriceVal > 0)
     {
-        targetPrice.innerHTML = '$' + targetPriceVal.toLocaleString('en'); // set to the new target price
+        setCurrSymbol(curr);
+        targetPrice.innerHTML = currSymbol + targetPriceVal.toLocaleString('en'); // set to the new target price && currency
     }
     else
     {
         arg = arg.replace(/\D/g, '') // regex search for all non-numeric chars
         targetPriceVal = tryParseInt(arg, 0); // attempt parse
-        targetPrice.innerHTML = '$' + arg.toLocaleString('en'); // set to the new target price
+
+        setCurrSymbol(curr);
+        targetPrice.innerHTML = currSymbol + arg.toLocaleString('en'); // set to the new target price && currency
     }
+
+    // reload if currency value changed
+    if (prevCurr !== curr) { getBTC(); prevCurr = curr; /* global var */  }
 
 });
 
@@ -93,5 +108,12 @@ function tryParseInt(str, defVal)
         }
     }
     return retVal;
+}
+
+// parse the correct symbol for the currency value selected
+function setCurrSymbol(curr)
+{
+    if (curr == 'USD') { currSymbol = '$' }
+    if (curr == 'EUR') { currSymbol = '€' }
 }
 

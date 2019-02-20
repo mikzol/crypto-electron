@@ -3,6 +3,8 @@ const path = require('path');
 const remote = electron.remote;
 const ipc = electron.ipcRenderer; // inter-process communication
 
+
+
 // close button event logic
 const clsBtn = document.getElementById('closeBtn');
 
