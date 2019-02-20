@@ -9,6 +9,13 @@ const notifyBtn = document.getElementById('notifyBtn');
 // Axios HTTP
 var price = document.querySelector('h1');
 var targetPrice = document.getElementById('targetPrice');
+var targetPriceVal; // set with ipc.on event
+
+// notification settings
+const notification = {
+    title: 'BTC ALERT',
+    body: 'BTC VALUE EXCEEDS SET TARGET PRICE'
+}
 
 // Axios HTTP library
 // terminal > npm install axios --save
@@ -22,10 +29,18 @@ function getBTC() {
             const cryptos = res.data.BTC.USD; // return data
             price.innerHTML = '$' + cryptos.toLocaleString('en');
 
+            // eval if set target value is less than current BTC exchange value
+            if (targetPrice.innerHTML !== '' && targetPriceVal < res.data.BTC.USD)
+            {
+                console.log(targetPriceVal)
+                console.log(JSON.stringify(res.data.BTC.USD))
+                const appNotification = new window.Notification(notification.title, notification);
+            }
+
         });
 }
 getBTC();
-setInterval(getBTC, 30000); // run every 30s (30000ms)
+setInterval(getBTC, 10000); // run every 30s (30000ms)
 
 // notify button event logic
 notifyBtn.addEventListener('click', function(event) {
@@ -49,32 +64,31 @@ notifyBtn.addEventListener('click', function(event) {
 // set target price based on add.js response
 ipc.on('targetPriceVal', function(event, arg) { // targetPriceVal is the response event
 
-    var targetPriceVal = tryParseInt(arg, 0);
+    targetPriceVal = tryParseInt(arg, 0); // attempt parse
     if (targetPriceVal > 0)
     {
-        targetPriceVal = '$' + targetPriceVal.toLocaleString('en');
+        targetPrice.innerHTML = '$' + targetPriceVal.toLocaleString('en'); // set to the new target price
     }
     else
     {
         arg = arg.replace(/\D/g, '') // regex search for all non-numeric chars
-        targetPriceVal = '$' + arg.toLocaleString('en');
+        targetPriceVal = tryParseInt(arg, 0); // attempt parse
+        targetPrice.innerHTML = '$' + arg.toLocaleString('en'); // set to the new target price
     }
-
-    targetPrice.innerHTML = targetPriceVal; // set to the new target price
 
 });
 
 // built similar to C#/Java int.TryParse() method
 function tryParseInt(str, defVal)
 {
-    var retVal = defVal;
+    var retVal = defVal; // default val required
     if (str !== null)
     {
         if (str.length > 0)
         {
             if (!isNaN(str))
             {
-                retVal = parseInt(str);
+                retVal = parseInt(str); // convert to int
             }
         }
     }
