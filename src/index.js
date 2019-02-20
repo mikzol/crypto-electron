@@ -33,13 +33,14 @@ function getBTC() {
             // eval if set target value is less than current BTC exchange value
             if (targetPrice.innerHTML !== '' && targetPriceVal < res.data.BTC.USD)
             {
+                // NOTE: notifications currently do not work for Win10
                 const appNotification = new window.Notification(notification.title, notification);
             }
 
         });
 }
 getBTC();
-setInterval(getBTC, 10000); // run every 30s (30000ms)
+setInterval(getBTC, 30000); // run every 30s (30000ms)
 
 // notify button event logic
 notifyBtn.addEventListener('click', function(event) {

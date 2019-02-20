@@ -1,9 +1,13 @@
+
 // define global vars
 const {app, BrowserWindow, Menu} = require('electron'); // load modules from electron
 const path = require('path');
 const url = require('url');
 const shell = require('electron').shell;
 const ipc = require("electron").ipcMain; // electron inter-process communication (ipcMain / ipcRenderer) 
+
+// default currency to USD
+const currency = 'USD';
 
 // global ref to window object (avoid JS garbage collection)
 let win;
@@ -35,7 +39,7 @@ function createWindow() {
                 {
                     label: 'Adjust Notification Value',
                     click() {
-                        // to do
+                        shell.openExternal('https://coinmarketcap.com');
                     }
                 },
                 {
@@ -63,7 +67,27 @@ function createWindow() {
             ]
         },
         {
-            label: 'Info'
+            label: 'Info',
+            submenu: [ // dropdown task(s)
+                {
+                    label: 'Change Currency',
+                    submenu: [ // sub-sub menu
+                        {
+                            label: 'USD ($)',
+                            click() {
+                                currency = 'USD'
+                            }
+                        },
+                        {
+                            label: 'EUR',
+                            click() {
+                                currency = 'EUR'
+                            }
+                        }
+                    ]
+
+                }
+            ]
         }
     ]);
 
