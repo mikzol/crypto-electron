@@ -62,7 +62,9 @@ notifyBtn.addEventListener('click', function(event) {
             width:400, 
             height:200 
         });
-
+    win.webContents.on('did-finish-load', () => {
+        win.webContents.send('currencyVal', currency, currSymbol);
+    })
     win.on('close', function() { win = null; });
     win.loadURL(modalPath); // load add.html as window
     win.show();

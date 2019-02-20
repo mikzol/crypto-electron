@@ -6,8 +6,9 @@ const url = require('url');
 const shell = require('electron').shell;
 const ipc = require("electron").ipcMain; // electron inter-process communication (ipcMain / ipcRenderer) 
 
-// default currency to USD
+// default currency vars to USD
 var currency = 'USD';
+var currSymbol = '$'
 
 // global ref to window object (avoid JS garbage collection)
 let win;
@@ -85,7 +86,6 @@ function createWindow() {
                             }
                         }
                     ]
-
                 }
             ]
         }
