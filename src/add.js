@@ -33,7 +33,7 @@ updBtn.addEventListener('click', function(event) {
 // receive currency values from index.html
 ipc.on('currencyVal', function(event, curr, currSym) {
 
-    //console.log(curr + ' ' + currSym)
+    // console.log(curr + ' ' + currSym)
     currPlaceholder = curr + ' ' + currSym;
 
 })
