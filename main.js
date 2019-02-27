@@ -40,7 +40,8 @@ function createWindow() {
                 {
                     label: 'Adjust Notification Value',
                     click() {
-                        // shell.openExternal('https://coinmarketcap.com');
+                        // TODO: open add.html on prompt
+                        // shell.openExternal('src\add.html');
                     }
                 },
                 {
