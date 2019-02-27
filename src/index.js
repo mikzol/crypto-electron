@@ -15,6 +15,10 @@ var currDisplay = document.getElementById('curr-display');
 var currency = 'USD';
 var currSymbol = '$';
 var prevCurr = 'USD';
+// high / low / pct vars
+var highPrice = document.getElementById('high-price');
+var lowPrice = document.getElementById('low-price');
+var pctPrice = document.getElementById('pct-price');
 
 // notification settings
 const notification = {
@@ -27,7 +31,7 @@ const notification = {
 // terminal > npm install axios --save
 function getBTC() {
 
-    // CryptoCompare API // dynmaic based on selected currency (USD || EUR)
+    // CryptoCompare API // dynamic based on selected currency (USD || EUR)
     axios.get('https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC&tsyms='+currency+'&api_key=adbe9819d79d1e9fd801665a2fb6657fa318cb9e3bec611029d1b78d8380d9d6') // custom API key gained at https://cyrptocompare.com/api
         .then(res => { // task chaining
 
@@ -45,9 +49,32 @@ function getBTC() {
                 const appNotification = new window.Notification(notification.title, notification);
             }
 
+            getHighLowPct(); // run in sequence
+
         });
 }
-getBTC();
+
+function getHighLowPct() {
+
+        // CryptoCompare API for Kraken AVG stats // dynmaic based on selected currency (USD || EUR)
+        axios.get('https://min-api.cryptocompare.com/data/generateAvg?fsym=BTC&tsym='+currency+'&e=Kraken&api_key=adbe9819d79d1e9fd801665a2fb6657fa318cb9e3bec611029d1b78d8380d9d6')
+        .then(res => { // task chaining
+
+            console.log(JSON.stringify(res.data)) // CD: debug
+
+            // set the display props
+            var high = res.data.DISPLAY.HIGH24HOUR;
+            var low = res.data.DISPLAY.LOW24HOUR;
+            var pct = res.data.DISPLAY.CHANGEPCT24HOUR;
+
+            console.log('debug' + high + ' ' + low + ' ' + pct) // CD: debug
+            highPrice.innerHTML = high.toLocaleString('en');
+            lowPrice.innerHTML = low.toLocaleString('en');
+            pctPrice.innerHTML = pct.toLocaleString('en');
+
+        });
+}
+getBTC(); // runs getHighLowPct() in sequence
 setInterval(getBTC, 30000); // run every 30s (30000ms)
 
 // notify button event logic
