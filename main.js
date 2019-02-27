@@ -40,7 +40,7 @@ function createWindow() {
                 {
                     label: 'Adjust Notification Value',
                     click() {
-                        shell.openExternal('https://coinmarketcap.com');
+                        // shell.openExternal('https://coinmarketcap.com');
                     }
                 },
                 {
@@ -76,13 +76,13 @@ function createWindow() {
                         {
                             label: 'USD ($)',
                             click() {
-                                currency = 'USD'
+                                currency = 'USD';
                             }
                         },
                         {
                             label: 'EUR (€)',
                             click() {
-                                currency = 'EUR'
+                                currency = 'EUR';
                             }
                         }
                     ]

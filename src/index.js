@@ -60,14 +60,15 @@ function getHighLowPct() {
         axios.get('https://min-api.cryptocompare.com/data/generateAvg?fsym=BTC&tsym='+currency+'&e=Kraken&api_key=adbe9819d79d1e9fd801665a2fb6657fa318cb9e3bec611029d1b78d8380d9d6')
         .then(res => { // task chaining
 
-            console.log(JSON.stringify(res.data)) // CD: debug
+            // console.log(JSON.stringify(res.data)) // CD: debug
 
-            // set the display props
+            // capture retvals
             var high = res.data.DISPLAY.HIGH24HOUR;
             var low = res.data.DISPLAY.LOW24HOUR;
             var pct = res.data.DISPLAY.CHANGEPCT24HOUR;
+            // console.log('debug' +high+ '-' +low+ '-' +pct) // CD: debug
 
-            console.log('debug' + high + ' ' + low + ' ' + pct) // CD: debug
+            // set the display props
             highPrice.innerHTML = high.toLocaleString('en');
             lowPrice.innerHTML = low.toLocaleString('en');
             pctPrice.innerHTML = pct.toLocaleString('en');
@@ -95,6 +96,18 @@ notifyBtn.addEventListener('click', function(event) {
     win.on('close', function() { win = null; });
     win.loadURL(modalPath); // load add.html as window
     win.show();
+
+});
+
+// debug this process
+ipc.on('currVal', function(event, curr) {
+
+    // collect receipt from ipcMain
+    console.log('e')
+    currency = curr;
+    setCurrSymbol(curr);
+    console.log(currSymbol+ ' ' +currency)
+    // getBTC();
 
 });
 
