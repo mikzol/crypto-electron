@@ -135,6 +135,15 @@ ipc.on('targetPriceVal', function(event, arg, curr) { // targetPriceVal is the r
 
 });
 
+// receive current selected currency from main.js
+ipc.on('update-curr', function(event, updCurr) {
+
+    currency = updCurr
+    setCurrSymbol(currency);
+    getBTC();
+
+});
+
 // built similar to C#/Java int.TryParse() method
 function tryParseInt(str, defVal)
 {
