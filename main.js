@@ -4,7 +4,7 @@ const {app, BrowserWindow, Menu} = require('electron'); // load modules from ele
 const path = require('path');
 const url = require('url');
 const shell = require('electron').shell;
-const ipc = require("electron").ipcMain; // electron inter-process communication (ipcMain / ipcRenderer) 
+const ipcMain = require("electron").ipcMain; // electron inter-process communication (ipcMain / ipcRenderer) 
 
 // default currency vars to USD
 var currency = 'USD';
@@ -55,7 +55,7 @@ function createWindow() {
                 {
                     label: 'Toggle DevTools',
                     accelerator: process.platfrom == 'darwin' ? 'Command+I' : 'Ctrl+I',
-                    click(item, focusedWindow){ // instatiate focus on open window
+                    click(item, focusedWindow){ // instantiate focus on open window
                         focusedWindow.toggleDevTools();
                     }
                 },
@@ -78,12 +78,16 @@ function createWindow() {
                             label: 'USD ($)',
                             click() {
                                 currency = 'USD';
+                                const focusedWindow = BrowserWindow.getFocusedWindow();
+                                focusedWindow.webContents.send('update-curr', currency);
                             }
                         },
                         {
                             label: 'EUR (€)',
                             click() {
                                 currency = 'EUR';
+                                const focusedWindow = BrowserWindow.getFocusedWindow();
+                                focusedWindow.webContents.send('update-curr', currency);
                             }
                         }
                     ]
@@ -108,7 +112,7 @@ app.on('activate', () => {
     if (win === null) { createWindow(); }
 });
 
-ipc.on('update-notify-val', function(event, arg) { // update-notify-val is the response event
+ipcMain.on('update-notify-val', function(event, arg) { // update-notify-val is the response event
 
     win.webContents.send('targetPriceVal', arg, currency);  // replace inner text with arg && pass currency
 
