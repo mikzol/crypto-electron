@@ -90,7 +90,7 @@ notifyBtn.addEventListener('click', function(event) {
             width:400, 
             height:200 
         });
-    win.webContents.on('did-finish-load', () => {
+    win.webContents.on('did-finish-load', () => { // emitted after onload event has dispatched
         win.webContents.send('currencyVal', currency, currSymbol);
     })
     win.on('close', function() { win = null; });
@@ -103,10 +103,10 @@ notifyBtn.addEventListener('click', function(event) {
 ipc.on('currVal', function(event, curr) {
 
     // collect receipt from ipcMain
-    console.log('e')
+    // console.log('e')
     currency = curr;
     setCurrSymbol(curr);
-    console.log(currSymbol+ ' ' +currency)
+    // console.log(currSymbol+ ' ' +currency)
     // getBTC();
 
 });

@@ -3,7 +3,7 @@ const path = require('path');
 const remote = electron.remote;
 const ipc = electron.ipcRenderer; // inter-process communication
 
-const currPlaceholder = document.getElementById('notifyVal').placeholder;
+const currPlaceholder = document.getElementById('notifyVal');
 
 // close button event logic
 const clsBtn = document.getElementById('closeBtn');
@@ -33,9 +33,8 @@ updBtn.addEventListener('click', function(event) {
 // receive currency values from index.html
 ipc.on('currencyVal', function(event, curr, currSym) {
 
-    // console.log(curr + ' ' + currSym)
-    currPlaceholder = curr + ' ' + currSym;
+    currPlaceholder.placeholder = curr + ' (' + currSym + ')'; // set display value to current currency
 
-})
+});
 
 
