@@ -8,4 +8,6 @@ built with node.js / HTML5 / Electron / CSS3 / Google APIs / Axios HTTP
 
 -- honing skills in new Electron application framework/libraries
 
--- https://coursetro.com/courses/22/Creating-Desktop-Apps-with-Electron-Tutorial
+#### PROJECT WIKI:
+
+https://github.com/coledixon/electron_crypto_app/wiki/MAIN
