@@ -85,7 +85,7 @@ notifyBtn.addEventListener('click', function(event) {
     let win = new BrowserWindow( // create window object
         { 
             frame:false, // remove toolbar menu
-            transparent:true, // corrsponds to add.css html, body
+            transparent:true, // corresponds to add.css html, body
             alwaysOnTop:true, 
             width:400, 
             height:200 
