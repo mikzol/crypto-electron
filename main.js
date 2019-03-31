@@ -40,8 +40,8 @@ function createWindow() {
                 {
                     label: 'Adjust Notification Value',
                     click() {
-                        // TODO: open add.html on prompt
-                        // shell.openExternal('src\add.html');
+                        const focusedWindow = BrowserWindow.getFocusedWindow();
+                        focusedWindow.webContents.send('open-addWindow'); // same process as index.js
                     }
                 },
                 {

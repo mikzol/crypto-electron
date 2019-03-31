@@ -148,6 +148,13 @@ ipc.on('update-curr', function(event, updCurr) {
 
 });
 
+// build add.html based on ipc passed for 'Update Notification Value' menu event
+ipc.on('open-addWindow', function(event) {
+
+    buildAddWindow();
+
+});
+
 // built similar to C#/Java int.TryParse() method
 function tryParseInt(str, defVal)
 {
