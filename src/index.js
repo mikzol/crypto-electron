@@ -134,6 +134,7 @@ ipc.on('targetPriceVal', function(event, arg, curr) { // targetPriceVal is the r
 // receive current selected currency from main.js
 ipc.on('update-curr', function(event, updCurr) {
 
+    if(currency != updCurr) { targetPrice.innerHTML = "CHOOSE TARGET PRICE"; } // reset displayed target value if currency changed
     currency = updCurr
     setCurrSymbol(currency);
     getBTC();
