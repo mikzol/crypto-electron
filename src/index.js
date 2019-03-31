@@ -81,6 +81,13 @@ setInterval(getBTC, 30000); // run every 30s (30000ms)
 // notify button event logic
 notifyBtn.addEventListener('click', function(event) {
 
+    buildAddWindow(); // moved logic for window creation to its own function (scalable)
+
+});
+
+// migrated logic from the notifyBtn.AddEventListener(). scalable for ipc from main process
+function buildAddWindow() {
+
     const modalPath = path.join('file://', __dirname, 'add.html'); // retrieve path html
     let win = new BrowserWindow( // create window object
         { 
@@ -97,7 +104,7 @@ notifyBtn.addEventListener('click', function(event) {
     win.loadURL(modalPath); // load add.html as window
     win.show();
 
-});
+}
 
 // UNUSED CODE?
 //ipc.on('currVal', function(event, curr) {
