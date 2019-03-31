@@ -99,17 +99,13 @@ notifyBtn.addEventListener('click', function(event) {
 
 });
 
-// debug this process
-ipc.on('currVal', function(event, curr) {
-
-    // collect receipt from ipcMain
-    // console.log('e')
-    currency = curr;
-    setCurrSymbol(curr);
-    // console.log(currSymbol+ ' ' +currency)
-    // getBTC();
-
-});
+// UNUSED CODE?
+//ipc.on('currVal', function(event, curr) {
+//
+//    currency = curr;
+//    setCurrSymbol(curr);
+//
+//});
 
 // set target price based on add.js response
 ipc.on('targetPriceVal', function(event, arg, curr) { // targetPriceVal is the response event
