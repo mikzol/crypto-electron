@@ -75,7 +75,7 @@ button {
     text-align: center;
 }
 
-.hlp-row {
+.hlp-row { /* hlp = high low pct */
     width: 97.5%;
     background: #1a1a1a;
     border-top: 3px; /* solid#FF0057 */
