@@ -106,14 +106,6 @@ function buildAddWindow() {
 
 }
 
-// UNUSED CODE?
-//ipc.on('currVal', function(event, curr) {
-//
-//    currency = curr;
-//    setCurrSymbol(curr);
-//
-//});
-
 // set target price based on add.js response
 ipc.on('targetPriceVal', function(event, arg, curr) { // targetPriceVal is the response event
 
