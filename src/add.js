@@ -1,6 +1,7 @@
 const electron = require('electron'); // required for all js in electron app
 const path = require('path');
-const remote = electron.remote;
+
+
 const ipc = electron.ipcRenderer; // inter-process communication
 
 const currPlaceholder = document.getElementById('notifyVal');
